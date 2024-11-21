@@ -1,11 +1,11 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Audiowide", sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: rgba(204, 200, 179, 0.87);
+  background-color: #181816;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -13,3 +13,18 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+input, textarea, button {
+  font-family: inherit
+}
+
+h1 {
+  font-size: 60px;
+}
+
+hr {
+  border-bottom: 2px solid;
+}
+
+#main-message {
+  text-align: center;
+}

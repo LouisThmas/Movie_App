@@ -9,11 +9,11 @@ function Message () {
             console.log("Helo!")
     }, [counter])
 
-    return <>
-        <h1>Hello brother</h1>
+    return <div id="main-message">
+        <h1>The Movie Matcher</h1>
         <button onClick={() => setCounter(counter + 2)}>Click Me!</button>
         <p>{counter}</p>
-    </>;
+    </div>;
 }
 
 export default Message
