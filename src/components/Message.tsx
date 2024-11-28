@@ -13,6 +13,10 @@ function Message () {
         <h1>The Movie Matcher</h1>
         <button onClick={() => setCounter(counter + 2)}>Click Me!</button>
         <p>{counter}</p>
+        <form>
+            <label>What is on your mind?</label><br></br>
+            <input type="text" id="thought" name="thought" size="70"/>
+        </form>
     </div>;
 }
 
