@@ -14,15 +14,12 @@
 }
 
 input, textarea, button {
-  font-family: inherit
+  font-family: inherit;
+  color: inherit;
 }
 
 h1 {
   font-size: 60px;
-}
-
-hr {
-  border-bottom: 2px solid;
 }
 
 #main-message {

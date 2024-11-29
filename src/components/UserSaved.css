@@ -1,0 +1,45 @@
+button {
+    background-color: transparent;
+    border: none;
+}
+
+#saved-items {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.saved {
+    display: none;
+    flex-direction: column;
+    animation: appear 1s;
+}
+
+.liked {
+    display: none;
+    flex-direction: column;
+    animation: appear 1s;
+}
+
+.saved-icon.active {
+    border: 2px solid rgba(204, 200, 179, 0.87);
+}
+
+.liked-icon.active {
+    border: 2px solid rgba(204, 200, 179, 0.87);
+}
+
+.icons {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
