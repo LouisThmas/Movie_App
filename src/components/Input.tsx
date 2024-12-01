@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+import "./Input.css";
 
-function Message () {
+function Input () {
 
     const [counter, setCounter] = useState(0);
 
@@ -9,15 +10,18 @@ function Message () {
             console.log("Helo!")
     }, [counter])
 
-    return <div id="main-message">
+    return <div id="main-border">
+        <div id="main-message">
         <h1>The Movie Matcher</h1>
         <button onClick={() => setCounter(counter + 2)}>Click Me!</button>
         <p>{counter}</p>
         <form>
-            <label>What is on your mind?</label><br></br>
-            <input type="text" id="thought" name="thought" size="70"/>
+            <p id="input-text">What is on your mind...</p>
+            <br></br>
+            <input type="text" id="thought" name="thought" placeholder="Type here"/>
         </form>
-    </div>;
+    </div>
+    </div>
 }
 
-export default Message
+export default Input
