@@ -1,0 +1,15 @@
+.feed-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex: 0.5;
+}
+
+.feed {
+    height: 500px;
+    overflow: scroll;
+    scrollbar-width:none;
+}
+
+

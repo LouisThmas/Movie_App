@@ -1,3 +1,64 @@
-.home-container {
-    position: relative;
+#thought {
+    border: solid 2px #f3e6a0;
+    box-shadow: inset 0 0 2px 2px #e87f3987, 0 0 2px 2px #e87f3987;
+    background-color: transparent;
+    width: 630px;
+    height: 21px;
+    outline: none;
 }
+
+::placeholder {
+    color: rgba(204, 200, 179, 0.87);
+}
+
+h1 {
+    color: #f3e6a0;
+    text-shadow: 0 0 10px #e87f39;
+    font-weight: 100;
+}
+
+#main-border {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Ensures items are spaced apart */
+    border: 3px solid #f3e6a0;
+    box-shadow: inset 0 0 2px 2px #e87f3987, 0 0 2px 2px #e87f3987;
+    width: 100%;
+    margin: 0 auto;
+    min-height: 90vh;
+    box-sizing: border-box;
+}
+
+.main-message {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    transition: flex 2s ease;
+}
+
+.main-message.active {
+    flex: 0.5;
+}
+
+#input-text {
+    animation: type 5s steps(100, end) forwards;
+    overflow: hidden;
+    white-space: nowrap;
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+}
+
+@keyframes type {
+    from { 
+        width: 0 ;
+    }
+    to { 
+        width: 100% ;
+    }
+}
+
+

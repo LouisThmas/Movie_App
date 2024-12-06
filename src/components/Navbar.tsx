@@ -1,9 +1,12 @@
-import React from "react";
 import "./Navbar.css"
 
-function Navbar({ currentPage }) {
+type NavbarProps = {
+  currentPage: string;
+};
+
+function Navbar({ currentPage }: NavbarProps) {
   // Define a function to get the dynamic class name
-  const getClassName = (page) =>
+  const getClassName = (page : string) =>
     page === currentPage ? "nav-element active" : "nav-element";
 
   return (
