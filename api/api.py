@@ -6,5 +6,15 @@ CORS(app)
 
 @app.route('/api/route')
 def message():
-    message = "Helloooooo"
-    return jsonify({'message': message})
+    message = "Terminator"
+    return [
+        {
+            'title': message,
+            'description': "I am a very good movie"
+        },
+        {
+            'title': 'Garfield',
+            'description': "Movie about lasagna"
+        }
+    ]
+

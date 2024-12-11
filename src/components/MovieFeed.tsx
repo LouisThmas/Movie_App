@@ -3,9 +3,15 @@ import "./MovieFeed.css";
 type MovieFeedProps = {
     isSent: boolean;
     thought: string;
+    movies: Movie[] | null;
 };
 
-function MovieFeed ({ isSent, thought }: MovieFeedProps) {
+type Movie = {
+    title: string;
+    description: string;
+};
+
+function MovieFeed ({ isSent, thought, movies }: MovieFeedProps) {
 
     if (!isSent) {
         return null
@@ -14,10 +20,17 @@ function MovieFeed ({ isSent, thought }: MovieFeedProps) {
 
         return <div className="feed-container">
             <div className="feed">
+                <h2>{thought}</h2>
                 <p>Movie 1</p>
                 <img src="./src/assets/test.jpg" width="300px"/>
                 <p>Movie 2</p>
                 <img src="./src/assets/test.jpg" width="300px"/>
+                {movies?.map((movie) => (
+                <>
+                    <p>{movie.title}</p>
+                    <p>{movie.description}</p>
+                </>
+            ))}
             </div>
         </div>
     }

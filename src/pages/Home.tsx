@@ -1,17 +1,25 @@
 import { useState } from "react";
 import Navbar from "../components/Navbar.tsx";
 import MovieFeed from "../components/MovieFeed.tsx";
+import getMatchingMovies from "../utils/MovieFetcher.tsx";
 import "./Home.css";
 
+type Movie = {
+  title: string;
+  description: string;
+};
+
 function Home () {
-  //const [message, setMessage] = useState("");
-  const [isMoving, setIsMoving] = useState(false);
+  const [isMoving, setIsMoving] = useState<boolean>(false);
   const [hasFeed, setFeedStatus] = useState<boolean>(false);
   const [thought, setThought] = useState<string>("");
+  const [movies, setMovies] = useState<Movie[] | null>(null);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // Prevent the default form submission
     setIsMoving(true);
+    const m = await getMatchingMovies(thought);
+    setMovies(m)
   };
 
   const handleAnimationEnd = () => {
@@ -31,7 +39,7 @@ function Home () {
                 <input type="text" id="thought" name="thought" placeholder="Type here" value={thought} onChange={(e) => setThought(e.target.value)}/>
             </form>
         </div>
-        <MovieFeed isSent={hasFeed} thought={thought}/>
+        <MovieFeed isSent={hasFeed} thought={`Here are some suggestions for ${thought}`} movies={movies}/>
     </div>
   </>
 }
