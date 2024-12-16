@@ -1,20 +1,12 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
+import ML
 
 app = Flask(__name__)
 CORS(app)
 
 @app.route('/api/route')
 def message():
-    message = "Terminator"
-    return [
-        {
-            'title': message,
-            'description': "I am a very good movie"
-        },
-        {
-            'title': 'Garfield',
-            'description': "Movie about lasagna"
-        }
-    ]
+    search = request.args.get('search')
+    return ML.basicFunction(search)
 

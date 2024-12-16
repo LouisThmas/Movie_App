@@ -14,19 +14,19 @@ function Home () {
   const [hasFeed, setFeedStatus] = useState<boolean>(false);
   const [thought, setThought] = useState<string>("");
   const [movies, setMovies] = useState<Movie[] | null>(null);
+  const [message, setMessage] = useState<string>("");
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // Prevent the default form submission
     setIsMoving(true);
     const m = await getMatchingMovies(thought);
-    setMovies(m)
+    setMovies(m);
+    setMessage(`Here are some suggestions for ${thought}`);
   };
 
   const handleAnimationEnd = () => {
     setFeedStatus(true);
   }
-
-  //useEffect(() => {fetch("http://127.0.0.1:5000/api/route").then(res => res.json()).then(data => {setMessage(data.message);});}, [])
 
   return <>
     <Navbar currentPage="home"/>
@@ -39,7 +39,7 @@ function Home () {
                 <input type="text" id="thought" name="thought" placeholder="Type here" value={thought} onChange={(e) => setThought(e.target.value)}/>
             </form>
         </div>
-        <MovieFeed isSent={hasFeed} thought={`Here are some suggestions for ${thought}`} movies={movies}/>
+        <MovieFeed isSent={hasFeed} thought={message} movies={movies}/>
     </div>
   </>
 }

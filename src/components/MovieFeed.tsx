@@ -1,4 +1,5 @@
 import "./MovieFeed.css";
+import { useEffect } from "react";
 
 type MovieFeedProps = {
     isSent: boolean;
@@ -13,23 +14,37 @@ type Movie = {
 
 function MovieFeed ({ isSent, thought, movies }: MovieFeedProps) {
 
+    useEffect(() => {
+        if (!isSent) return;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("show");
+                }
+            });
+        });
+
+        const elements = document.querySelectorAll(".hidden");
+        elements.forEach((el) => observer.observe(el));
+
+        return () => observer.disconnect();
+    }, [isSent, movies]);
+
     if (!isSent) {
         return null
     }
     else {
-
         return <div className="feed-container">
             <div className="feed">
                 <h2>{thought}</h2>
-                <p>Movie 1</p>
-                <img src="./src/assets/test.jpg" width="300px"/>
-                <p>Movie 2</p>
-                <img src="./src/assets/test.jpg" width="300px"/>
+                <hr></hr>
                 {movies?.map((movie) => (
-                <>
-                    <p>{movie.title}</p>
+                <div key={movie.title} className="hidden">
+                    <h3>{movie.title}</h3>
                     <p>{movie.description}</p>
-                </>
+                    <hr></hr>
+                </div>
             ))}
             </div>
         </div>
