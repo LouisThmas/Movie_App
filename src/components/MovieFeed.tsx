@@ -21,6 +21,7 @@ function MovieFeed ({ isSent, thought, movies }: MovieFeedProps) {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add("show");
+                    entry.target.children[1].classList.add("display");
                 }
             });
         });
@@ -42,6 +43,9 @@ function MovieFeed ({ isSent, thought, movies }: MovieFeedProps) {
                 {movies?.map((movie) => (
                 <div key={movie.title} className="hidden">
                     <h3>{movie.title}</h3>
+                    <div className="progress-container">
+                        <div className="hello"></div>
+                    </div>
                     <p>{movie.description}</p>
                     <hr></hr>
                 </div>
