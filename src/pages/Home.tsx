@@ -7,6 +7,7 @@ import "./Home.css";
 type Movie = {
   title: string;
   description: string;
+  rating: number;
 };
 
 function Home () {
@@ -21,7 +22,7 @@ function Home () {
     setIsMoving(true);
     const m = await getMatchingMovies(thought);
     setMovies(m);
-    setMessage(`Here are some suggestions for ${thought}`);
+    setMessage(thought);
   };
 
   const handleAnimationEnd = () => {

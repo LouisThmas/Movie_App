@@ -31,5 +31,5 @@ def search (searchRequest):
     ranked_indices = similarity_scores.argsort()[::-1]
 
     # Takes the first 10 movies that match the user input the most
-    top_movies = [{"title": movies[i]["title"], "description": movies[i]["overview"]} for i in ranked_indices[:10]]
+    top_movies = [{"title": movies[i]["title"], "description": movies[i]["overview"], "rating": movies[i]["vote_average"]} for i in ranked_indices[:10]]
     return top_movies
