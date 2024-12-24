@@ -11,6 +11,8 @@ type Movie = {
     title: string;
     description: string;
     rating: number;
+    runtime: string;
+    release_year: string;
 };
 
 function MovieFeed ({ isSent, thought, movies }: MovieFeedProps) {
@@ -22,7 +24,7 @@ function MovieFeed ({ isSent, thought, movies }: MovieFeedProps) {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add("show");
-                    entry.target.children[1].children[0].children[0].classList.add("display");
+                    entry.target.children[2].children[0].children[0].classList.add("display");
                 }
             });
         });
@@ -44,7 +46,8 @@ function MovieFeed ({ isSent, thought, movies }: MovieFeedProps) {
                 <hr></hr>
                 {movies?.map((movie) => (
                 <div key={movie.title} className="hidden">
-                    <h3>{movie.title}</h3>
+                    <h3 id="movie-title">{movie.title}</h3>
+                    <p id="runtime-year">{movie.release_year} • {movie.runtime} mins</p>
                     <div className="progress">
                         <div className="progress-container">
                             <div className="progress-bar" style={{ '--dynamic-width': `${movie.rating * 10}px` }}></div>
