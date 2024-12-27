@@ -33,11 +33,14 @@ As previously stated, the app relies on many machine learning concepts to find t
 
 A sparse matrix of these ``terms`` has been made to compare the similarity of the user nput to each movie. This is done with a TF-IDF matrix, which is a way to represent sentences with values. The TF part of this matrix means the *term frequency*, which calculates the frequency of words in a sentence. This equation helps highlight the frequent, and so important, words in a sentence. Next, IDF signifies *inverse document frequency*, which calculates the importance of certain words in a sentence. Words that are not important for the deeper meaning of a sentence like "the", "a" and "of" are not considered. This way, only the important terms are evaluated. Both the TFIDFVectorizer and the sparse matrix are saved as to not rebuild them on every request.
 
-Finally, the TFIDFVectorizer is used to turn the user input into a vector that can be compared against the vectors of each movie. This comparison can be done with the following formula:
+The TFIDFVectorizer from the ``scikit-learn`` library is used to turn the user input into a vector that can be compared against the vectors of each movie. This comparison can be done with the following formula:
 
 ``cos θ = (a · b) / (|a| |b|)``
 
 This formula finds the angle between two vectors. The smaller the angle, the more the vectors are close. In the context of this movie application, the closer the user input vector is to the vector generated for a movie, the more they are similar. All that needs to be done is to sort the movies by the angle between the movie and the user input and to return the 10 movies with the smallest angle.
+
+Finally, user input is sanitized by only keeping certain word types with the help of ``spaCy``. This ensures that only the important words are being considered in the search.
+
 
 
 
