@@ -8,13 +8,15 @@ type Movie = {
   title: string;
   description: string;
   rating: number;
+  runtime: string;
+  release_year: string;
 };
 
 function Home () {
   const [isMoving, setIsMoving] = useState<boolean>(false);
   const [hasFeed, setFeedStatus] = useState<boolean>(false);
   const [thought, setThought] = useState<string>("");
-  const [movies, setMovies] = useState<Movie[] | null>(null);
+  const [movies, setMovies] = useState<Movie[]>([]);
   const [message, setMessage] = useState<string>("");
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {

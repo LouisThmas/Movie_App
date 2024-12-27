@@ -36,6 +36,7 @@
     width: 0%;
     padding-top: 3px;
     box-shadow: inset 0 0 1px 1px #e87f3987, 0 0 1px 1px #e87f3987;
+    transition: width 1s ease-in-out;
 }
 
 .progress {
@@ -49,7 +50,6 @@
 
 .display.progress-bar {
     width: var(--dynamic-width);
-    transition: width 1s ease-in-out;
 }
 
 #prompt {
@@ -70,5 +70,16 @@
 hr {
     border: 1px solid #f3e6a0;
     box-shadow: inset 0 0 2px 2px #e87f3987, 0 0 2px 2px #e87f3987;
+}
+
+#load-button {
+    border: 2px solid #f3e6a0;
+    box-shadow: inset 0 0 2px 2px #e87f3987, 0 0 2px 2px #e87f3987;
+     margin-top: 20px;
+}
+
+#button-container {
+    display: flex;
+    justify-content: center;
 }
 

@@ -8,5 +8,6 @@ CORS(app)
 @app.route('/api/route')
 def message():
     searchRequest = request.args.get('search')
-    return SearchEngine.search(searchRequest)
+    pageNumber = request.args.get('page')
+    return SearchEngine.search(searchRequest, pageNumber)
 

@@ -1,10 +1,11 @@
 import "./MovieFeed.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import getMatchingMovies from "../utils/MovieFetcher";
 
 type MovieFeedProps = {
     isSent: boolean;
     thought: string;
-    movies: Movie[] | null;
+    movies: Movie[];
 };
 
 type Movie = {
@@ -16,25 +17,43 @@ type Movie = {
 };
 
 function MovieFeed ({ isSent, thought, movies }: MovieFeedProps) {
+    const [movieList, setMovieList] = useState<Movie[]>(movies);
+    const [pageNumber, setPageNumber] = useState<number>(1);
+
+    async function loadMoreMovies() {
+        const newMovies = await getMatchingMovies(thought, pageNumber);
+        setMovieList((prevMovieList) => [...prevMovieList, ...newMovies]);
+        setPageNumber((prevPage) => prevPage + 1);
+    }
+
+    // Set the movie list when the prompt is sent (to not have an empty list first)
+    useEffect(() => {
+        setMovieList(movies);
+    }, [isSent])
 
     useEffect(() => {
         if (!isSent) return;
-
+    
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add("show");
-                    entry.target.children[2].children[0].children[0].classList.add("display");
+                    const progressBar = entry.target.querySelector('.progress-bar');
+                    if (progressBar) {
+                        progressBar.classList.add("display");
+                    }
+                    observer.unobserve(entry.target);
                 }
             });
         });
-
+    
         const elements = document.querySelectorAll(".hidden");
         elements.forEach((el) => observer.observe(el));
-
+    
         return () => observer.disconnect();
-    }, [isSent, movies]);
-
+    }, [isSent, movieList]);
+    
+    
     if (!isSent) {
         return null
     }
@@ -44,13 +63,13 @@ function MovieFeed ({ isSent, thought, movies }: MovieFeedProps) {
                 <h2>Here are some suggestions for:</h2>
                 <h2 id="prompt">{thought}</h2>
                 <hr></hr>
-                {movies?.map((movie) => (
+                {movieList?.map((movie) => (
                 <div key={movie.title} className="hidden">
                     <h3 id="movie-title">{movie.title}</h3>
                     <p id="runtime-year">{movie.release_year} • {movie.runtime} mins</p>
                     <div className="progress">
                         <div className="progress-container">
-                            <div className="progress-bar" style={{ '--dynamic-width': `${movie.rating * 10}px` }}></div>
+                            <div className="progress-bar" style={{ '--dynamic-width': `${movie.rating * 10}px` } as React.CSSProperties}></div>
                         </div>
                         <p>{movie.rating * 10}%</p>
                     </div>
@@ -58,6 +77,9 @@ function MovieFeed ({ isSent, thought, movies }: MovieFeedProps) {
                     <hr></hr>
                 </div>
             ))}
+            <div id="button-container">
+                <button id="load-button" onClick={loadMoreMovies}>Load More</button>
+            </div>
             </div>
         </div>
     }
