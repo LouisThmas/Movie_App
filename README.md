@@ -3,6 +3,12 @@
 ## Overview
 This web app is designed to give you movie recommendations in function of what you feel in the moment. This software uses a modified version of a database from Kaggle (https://www.kaggle.com/datasets/rounakbanik/the-movies-dataset) to find the closest matching movies. The intention behind this application to allow users to quickly and easily discover movies that match their feelings. Many machine learning concepts are used to achieve this goal.
 
+## Pictures
+
+![Alt text](pictures/pic_1.png)
+
+![Alt text](pictures/pic_2.png)
+
 ## How to run
 Make sure you have Node, npm and python installed on your machine. After copying the repository on your machine, you must download the javascript dependencies like so:
 
@@ -31,7 +37,7 @@ To view the website, head to the ``src`` directory. In there, you can run the fo
 ## Theory
 As previously stated, the app relies on many machine learning concepts to find the best matching movies. First, it is important to note that the data from the database has been sanitized by removing unnecessary columns and null values. Additionally, the ``terms`` column is an amalgamation of the ``director``, ``actors`` and ``keywords`` columns. This allows users to find movies that have certain themes and that star their favorite actors. 
 
-A sparse matrix of these ``terms`` has been made to compare the similarity of the user nput to each movie. This is done with a TF-IDF matrix, which is a way to represent sentences with values. The TF part of this matrix means the *term frequency*, which calculates the frequency of words in a sentence. This equation helps highlight the frequent, and so important, words in a sentence. Next, IDF signifies *inverse document frequency*, which calculates the importance of certain words in a sentence. Words that are not important for the deeper meaning of a sentence like "the", "a" and "of" are not considered. This way, only the important terms are evaluated. Both the TFIDFVectorizer and the sparse matrix are saved as to not rebuild them on every request.
+A sparse matrix of these ``terms`` has been made to compare the similarity of the user input to each movie. This is done with a TF-IDF matrix, which is a way to represent sentences with values. The TF part of this matrix means the *term frequency*, which calculates the frequency of words in a sentence. This equation helps highlight the frequent, and so important, words in a sentence. Next, IDF signifies *inverse document frequency*, which calculates the importance of certain words in a sentence. Words that are not important for the deeper meaning of a sentence like "the", "a" and "of" are not considered. This way, only the important terms are evaluated. Both the TFIDFVectorizer and the sparse matrix are saved as to not rebuild them on every request.
 
 The TFIDFVectorizer from the ``scikit-learn`` library is used to turn the user input into a vector that can be compared against the vectors of each movie. This comparison can be done with the following formula:
 

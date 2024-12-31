@@ -71,7 +71,7 @@ function MovieFeed ({ isSent, thought, movies }: MovieFeedProps) {
                         <div className="progress-container">
                             <div className="progress-bar" style={{ '--dynamic-width': `${movie.rating * 10}px` } as React.CSSProperties}></div>
                         </div>
-                        <p>{movie.rating * 10}%</p>
+                        <p>{movie.rating * 10}★</p>
                     </div>
                     <p>{movie.description}</p>
                     <hr></hr>
