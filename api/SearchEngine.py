@@ -59,5 +59,5 @@ def search (searchRequest, pageNumber):
     supIndex = ((int(pageNumber)*10) + 10)
 
     # Takes the first 10 movies that match the user input the most
-    top_movies = [{"title": movies[i]["title"], "description": movies[i]["overview"], "rating": movies[i]["vote_average"], "runtime": movies[i]["runtime"], "release_year": movies[i]["release_date"].split("-")[0]} for i in ranked_indices[infIndex:supIndex]]
+    top_movies = [{"id": movies[i]["index"], "title": movies[i]["title"], "description": movies[i]["overview"], "rating": movies[i]["vote_average"], "runtime": movies[i]["runtime"], "release_year": movies[i]["release_date"].split("-")[0]} for i in ranked_indices[infIndex:supIndex]]
     return top_movies

@@ -5,6 +5,7 @@ import getMatchingMovies from "../utils/MovieFetcher.tsx";
 import "./Home.css";
 
 type Movie = {
+  id: number;
   title: string;
   description: string;
   rating: number;

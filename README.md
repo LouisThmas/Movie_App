@@ -5,9 +5,9 @@ This web app is designed to give you movie recommendations in function of what y
 
 ## Pictures
 
-![Alt text](pictures/pic_1.png)
-
 ![Alt text](pictures/pic_2.png)
+
+![Alt text](pictures/pic_1.png)
 
 ## How to run
 Make sure you have Node, npm and python installed on your machine. After copying the repository on your machine, you must download the javascript dependencies like so:

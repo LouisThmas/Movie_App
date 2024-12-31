@@ -48,6 +48,10 @@
     height: 20px;
 }
 
+.save-icon {
+    width: 40px;
+}
+
 .display.progress-bar {
     width: var(--dynamic-width);
 }

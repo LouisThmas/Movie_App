@@ -1,37 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./UserSaved.css";
+import SavedFetcher from "../utils/SavedFetcher";
 
 function UserSaved() {
-    const [activeTab, setActiveTab] = useState("saved");
+    const [savedMovies, setSavedMovies] = useState([]);
 
-    const displaySaved = () => {
-        setActiveTab("saved");
-    };
+    useEffect(() => {
+        async function fetchSavedMovies() {
+            try {
+                const movies = await SavedFetcher();
+                setSavedMovies(movies);
+            } catch (error) {
+                console.error("Error fetching saved movies:", error);
+            }
+        }
 
-    const displayLiked = () => {
-        setActiveTab("liked");
-    };
+        fetchSavedMovies();
+    }, []);
 
     return (
         <div className="saved-container">
             <div className="icons">
-                <button
-                    className={`saved-icon ${activeTab === "saved" ? "active" : ""}`}
-                    onClick={displaySaved}>Saved</button>
-                <button
-                    className={`liked-icon ${activeTab === "liked" ? "active" : ""}`}
-                    onClick={displayLiked}>Liked</button>
+                <button className="saved-icon">Saved</button>
             </div>
             <div id="saved-items">
-                <div className="saved" style={{ display: activeTab === "saved" ? "flex" : "none" }}>
-                    <p>Saved movie #1</p>
-                    <p>Saved movie #2</p>
-                    <p>Saved movie #3</p>
-                </div>
-                <div className="liked" style={{ display: activeTab === "liked" ? "flex" : "none" }}>
-                    <p>Liked movie #1</p>
-                    <p>Liked movie #2</p>
-                    <p>Liked movie #3</p>
+                <div className="saved" style={{ display: "flex" }}>
+                    {savedMovies.map((movie, index) => (
+                        <p key={index}>{movie.movieTitle}</p>
+                    ))}
                 </div>
             </div>
         </div>

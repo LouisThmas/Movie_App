@@ -1,6 +1,7 @@
 import "./MovieFeed.css";
 import { useEffect, useState } from "react";
 import getMatchingMovies from "../utils/MovieFetcher";
+import saveMovie from "../utils/MovieSaver";
 
 type MovieFeedProps = {
     isSent: boolean;
@@ -9,6 +10,7 @@ type MovieFeedProps = {
 };
 
 type Movie = {
+    id: number;
     title: string;
     description: string;
     rating: number;
@@ -24,6 +26,10 @@ function MovieFeed ({ isSent, thought, movies }: MovieFeedProps) {
         const newMovies = await getMatchingMovies(thought, pageNumber);
         setMovieList((prevMovieList) => [...prevMovieList, ...newMovies]);
         setPageNumber((prevPage) => prevPage + 1);
+    }
+
+    async function save(id: number, title: string) {
+        const savedMovie = saveMovie(id, title);
     }
 
     // Set the movie list when the prompt is sent (to not have an empty list first)
@@ -74,6 +80,7 @@ function MovieFeed ({ isSent, thought, movies }: MovieFeedProps) {
                         <p>{movie.rating * 10}★</p>
                     </div>
                     <p>{movie.description}</p>
+                    <button onClick={() => save(movie.id, movie.title)}><img className="save-icon" src="src/assets/save.png"/></button>
                     <hr></hr>
                 </div>
             ))}
