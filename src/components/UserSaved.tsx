@@ -20,13 +20,14 @@ function UserSaved() {
 
     return (
         <div className="saved-container">
-            <div className="icons">
-                <button className="saved-icon">Saved</button>
-            </div>
+            <h2>Saved Movies</h2>
             <div id="saved-items">
-                <div className="saved" style={{ display: "flex" }}>
+                <div className="saved">
                     {savedMovies.map((movie, index) => (
-                        <p key={index}>{movie.movieTitle}</p>
+                        <div key={index}>
+                            <h3 id="title">{movie.movieTitle}</h3>
+                            <p id="info">{movie.movieYear} • {movie.movieRuntime} mins</p>
+                        </div>
                     ))}
                 </div>
             </div>

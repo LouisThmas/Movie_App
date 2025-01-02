@@ -28,8 +28,8 @@ function MovieFeed ({ isSent, thought, movies }: MovieFeedProps) {
         setPageNumber((prevPage) => prevPage + 1);
     }
 
-    async function save(id: number, title: string) {
-        const savedMovie = saveMovie(id, title);
+    async function save(id: number, title: string, runtime: string, year: string) {
+        const savedMovie = saveMovie(id, title, runtime, year);
     }
 
     // Set the movie list when the prompt is sent (to not have an empty list first)
@@ -80,7 +80,7 @@ function MovieFeed ({ isSent, thought, movies }: MovieFeedProps) {
                         <p>{movie.rating * 10}★</p>
                     </div>
                     <p>{movie.description}</p>
-                    <button onClick={() => save(movie.id, movie.title)}><img className="save-icon" src="src/assets/save.png"/></button>
+                    <button onClick={() => save(movie.id, movie.title, movie.runtime, movie.release_year)}><img className="save-icon" src="src/assets/save.png"/></button>
                     <hr></hr>
                 </div>
             ))}

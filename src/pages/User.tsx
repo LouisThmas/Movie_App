@@ -10,7 +10,6 @@ function User () {
     <div className="user-info">
       <img className="user-icon" src="src/assets/icon.png"/>
       <p className="username">Username</p>
-      <p className="email">Email</p>
     </div>
     <UserSaved/>
   </div>

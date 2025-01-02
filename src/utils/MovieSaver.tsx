@@ -1,7 +1,9 @@
-async function saveMovie (id : number, title : string) {
+async function saveMovie (id : number, title : string, runtime: string, year: string) {
     const movieData = {
         movieId: id,
-        movieTitle: title
+        movieTitle: title,
+        movieRuntime: runtime,
+        movieYear: year
     };
 
     const reqOptions = {

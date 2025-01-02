@@ -1,3 +1,14 @@
 [
-   
+    {
+        "movieId": 295,
+        "movieTitle": "The Tourist",
+        "movieRuntime": 103,
+        "movieYear": "2010"
+    },
+    {
+        "movieId": 1567,
+        "movieTitle": "Warm Bodies",
+        "movieRuntime": 97,
+        "movieYear": "2013"
+    }
 ]
