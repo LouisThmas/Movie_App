@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import getMatchingMovies from "../utils/MovieFetcher";
 import saveMovie from "../utils/MovieSaver";
 import SavedFetcher from "../utils/SavedFetcher";
+import deleteMovie from "../utils/MovieDeleter";
 
 type MovieFeedProps = {
     isSent: boolean;
@@ -31,11 +32,28 @@ function MovieFeed ({ isSent, thought, movies }: MovieFeedProps) {
         setPageNumber((prevPage) => prevPage + 1);
     }
 
+    function removeSavedMovie(id: number) {
+        let newMovieArray = [];
+
+        for (let i = 0; i < savedMovies.length; i++) {
+            if (savedMovies[i] != id){
+                newMovieArray.push(savedMovies[i]);
+            }
+        }
+        return newMovieArray;
+    }
+
     // Asynchronous function to save movies
     // Also adds the saved movie to the save list
     async function save(id: number, title: string, runtime: string, year: string) {
+        if (savedMovies.includes(id)) {
+            deleteMovie(id);
+            setSavedMovies(removeSavedMovie(id));
+        }
+        else {
         saveMovie(id, title, runtime, year);
         setSavedMovies((savedMovies) => [...savedMovies, id])
+        }
     }
 
     // Set the movie list when the prompt is sent (to not have an empty list first)

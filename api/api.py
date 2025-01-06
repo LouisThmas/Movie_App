@@ -26,6 +26,23 @@ def save():
     
     return request.get_json()
 
+@app.route('/api/unsave', methods =['DELETE'])
+def delete():
+    with open('Database/userSavedDB.json') as database:
+        savedMovies = json.load(database)
+
+    for i in range(len(savedMovies)):
+        if savedMovies[i]["movieId"] == request.get_json()["movieId"]:
+            del savedMovies[i]
+            break
+
+    with open('Database/userSavedDB.json', 'w') as json_file:
+        json.dump(savedMovies, json_file, 
+                                indent=4,  
+                                separators=(',',': '))
+    
+    return request.get_json()
+
 @app.route('/api/saved', methods = ['GET'])
 def getSaved():
     with open('Database/userSavedDB.json') as database:

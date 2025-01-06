@@ -20,7 +20,7 @@ button {
     animation: appear 1s;
     overflow: scroll;
     scrollbar-width: none;
-    height: 200px;
+    height: 250px;
     justify-content: center;
 }
 
