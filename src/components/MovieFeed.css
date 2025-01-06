@@ -48,8 +48,14 @@
     height: 20px;
 }
 
-.save-icon {
+.save-icon.true {
     width: 40px;
+    content: url(/src/assets/saved.png);
+}
+
+.save-icon.false {
+    width: 40px;
+    content: url(/src/assets/save.png);
 }
 
 .display.progress-bar {
