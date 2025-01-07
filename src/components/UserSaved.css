@@ -44,6 +44,11 @@ button {
     gap: 50px;
 }
 
+#unsave {
+    border: solid 2px #f3e6a0;
+    box-shadow: inset 0 0 2px 2px #e87f3987, 0 0 2px 2px #e87f3987;
+}
+
 @keyframes appear {
     from {
         opacity: 0;

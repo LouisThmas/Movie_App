@@ -47,12 +47,12 @@ function MovieFeed ({ isSent, thought, movies }: MovieFeedProps) {
     // Also adds the saved movie to the save list
     async function save(id: number, title: string, runtime: string, year: string) {
         if (savedMovies.includes(id)) {
-            deleteMovie(id);
+            await deleteMovie(id);
             setSavedMovies(removeSavedMovie(id));
         }
         else {
-        saveMovie(id, title, runtime, year);
-        setSavedMovies((savedMovies) => [...savedMovies, id])
+            await saveMovie(id, title, runtime, year);
+            setSavedMovies((savedMovies) => [...savedMovies, id])
         }
     }
 
@@ -65,16 +65,14 @@ function MovieFeed ({ isSent, thought, movies }: MovieFeedProps) {
             try {
                 const movies = await SavedFetcher();
 
-                movies.forEach(element => {
-                    setSavedMovies((movies) => [...movies, element.movieId])
-                    console.log(element.movieId)
+                movies.forEach(movie => {
+                    setSavedMovies((movies) => [...movies, movie.movieId])
                 });
             } catch (error) {
                 console.error("Error fetching saved movies:", error);
             }
         }
         fetchSavedMovies();
-        console.log("here are the saved movies",savedMovies)
     }, [isSent])
 
     useEffect(() => {
