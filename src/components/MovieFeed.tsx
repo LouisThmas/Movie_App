@@ -20,11 +20,11 @@ type Movie = {
     release_year: string;
 };
 
-function MovieFeed ({ isSent, thought, movies }: MovieFeedProps) {
+function MovieFeed({ isSent, thought, movies }: MovieFeedProps) {
     const [movieList, setMovieList] = useState<Movie[]>(movies);
     const [pageNumber, setPageNumber] = useState<number>(1);
     // Stores the ids of the movies that are saved
-    const [savedMovies, setSavedMovies] = useState<number[]>([0])
+    const [savedMovies, setSavedMovies] = useState<number[]>([]);
 
     async function loadMoreMovies() {
         const newMovies = await getMatchingMovies(thought, pageNumber);
@@ -33,56 +33,48 @@ function MovieFeed ({ isSent, thought, movies }: MovieFeedProps) {
     }
 
     function removeSavedMovie(id: number) {
-        let newMovieArray = [];
-
-        for (let i = 0; i < savedMovies.length; i++) {
-            if (savedMovies[i] != id){
-                newMovieArray.push(savedMovies[i]);
-            }
-        }
-        return newMovieArray;
+        return savedMovies.filter((movieId) => movieId !== id);
     }
 
-    // Asynchronous function to save movies
-    // Also adds the saved movie to the save list
     async function save(id: number, title: string, runtime: string, year: string) {
         if (savedMovies.includes(id)) {
             await deleteMovie(id);
             setSavedMovies(removeSavedMovie(id));
-        }
-        else {
+        } else {
             await saveMovie(id, title, runtime, year);
-            setSavedMovies((savedMovies) => [...savedMovies, id])
+            setSavedMovies((savedMovies) => [...savedMovies, id]);
         }
     }
 
     // Set the movie list when the prompt is sent (to not have an empty list first)
     // Get the movies that are saved by the user aswell
     useEffect(() => {
-        setMovieList(movies);
+        if (isSent) {
+            setMovieList(movies);
+            setPageNumber(1);
+        }
+    }, [isSent, thought, movies]);
 
+    useEffect(() => {
         async function fetchSavedMovies() {
             try {
-                const movies = await SavedFetcher();
-
-                movies.forEach(movie => {
-                    setSavedMovies((movies) => [...movies, movie.movieId])
-                });
+                const saved = await SavedFetcher();
+                setSavedMovies(saved.map((movie) => movie.movieId));
             } catch (error) {
                 console.error("Error fetching saved movies:", error);
             }
         }
         fetchSavedMovies();
-    }, [isSent])
+    }, []);
 
     useEffect(() => {
         if (!isSent) return;
-    
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add("show");
-                    const progressBar = entry.target.querySelector('.progress-bar');
+                    const progressBar = entry.target.querySelector(".progress-bar");
                     if (progressBar) {
                         progressBar.classList.add("display");
                     }
@@ -90,44 +82,47 @@ function MovieFeed ({ isSent, thought, movies }: MovieFeedProps) {
                 }
             });
         });
-    
+
         const elements = document.querySelectorAll(".hidden");
         elements.forEach((el) => observer.observe(el));
-    
+
         return () => observer.disconnect();
     }, [isSent, movieList]);
-    
-    
+
     if (!isSent) {
-        return null
+        return null;
     }
-    else {
-        return <div className="feed-container">
+
+    return (
+        <div className="feed-container">
             <div className="feed">
                 <h2>Here are some suggestions for:</h2>
                 <h2 id="prompt">{thought}</h2>
                 <hr></hr>
                 {movieList?.map((movie) => (
-                <div key={movie.title} className="hidden">
-                    <h3 id="movie-title">{movie.title}</h3>
-                    <p id="runtime-year">{movie.release_year} • {movie.runtime} mins</p>
-                    <div className="progress">
-                        <div className="progress-container">
-                            <div className="progress-bar" style={{ '--dynamic-width': `${movie.rating * 10}px` } as React.CSSProperties}></div>
+                    <div key={movie.id} className="hidden">
+                        <h3 id="movie-title">{movie.title}</h3>
+                        <p id="runtime-year">{movie.release_year} • {movie.runtime} mins</p>
+                        <div className="progress">
+                            <div className="progress-container">
+                                <div
+                                    className="progress-bar"
+                                    style={{ "--dynamic-width": `${movie.rating * 10}px` } as React.CSSProperties}
+                                ></div>
+                            </div>
+                            <p>{movie.rating * 10}★</p>
                         </div>
-                        <p>{movie.rating * 10}★</p>
+                        <p>{movie.description}</p>
+                        <button className="save-icon" onClick={() => save(movie.id, movie.title, movie.runtime, movie.release_year)}><img className={`save-icon ${savedMovies.includes(movie.id)}`}/></button>
+                        <hr></hr>
                     </div>
-                    <p>{movie.description}</p>
-                    <button className="save-icon" onClick={() => save(movie.id, movie.title, movie.runtime, movie.release_year)}><img className={`save-icon ${savedMovies.includes(movie.id)}`}/></button>
-                    <hr></hr>
+                ))}
+                <div id="button-container">
+                    <button id="load-button" onClick={loadMoreMovies}>Load More</button>
                 </div>
-            ))}
-            <div id="button-container">
-                <button id="load-button" onClick={loadMoreMovies}>Load More</button>
-            </div>
             </div>
         </div>
-    }
+    );
 }
 
-export default MovieFeed
+export default MovieFeed;
